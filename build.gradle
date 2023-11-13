@@ -1,0 +1,64 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+ext {
+    configuration = [
+            buildToolsVersion: "30.0.0",
+            compileVersion   : 30,
+            minSdk           : 15,
+            targetSdk        : 30
+    ]
+
+    libraries = [
+            kotlinx_coroutines_core   : "1.5.2",
+
+            coroutines_utils          : "v1.1.4",
+
+            netty                     : "4.1.48.Final",
+
+            gson                      : "2.8.6",
+
+            saf_log                   : "v2.6.8"
+    ]
+}
+
+buildscript {
+    ext.kotlin_version = '1.5.31'
+
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/google/' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter/'}
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.2.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/google/' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter/'}
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+    tasks.withType(Javadoc) {
+        options {
+            encoding "UTF-8"
+            charSet 'UTF-8'
+            links "http://docs.oracle.com/javase/7/docs/api"
+        }
+    }
+}
+
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+tasks.getByPath(":app:mergeReleaseJavaResource").enabled = false
